@@ -1,14 +1,17 @@
 import { ColorInput } from "@mantine/core"
 import Image from "next/image"
+import { useState } from "react"
 import toast, {Toaster} from "react-hot-toast"
 import Layout from "../components/Layout"
+import OrderModal from "../components/OrderModal"
 import { urlFor } from "../lib/client"
 import { useStore } from "../store/store"
 import css from "../styles/Cart.module.css"
 
 export default function Cart() {
-    const CartData = useStore((state)=> state.cart)
-    const removeBiryani = useStore((state)=>state.removeBiryani)
+    const CartData = useStore((state)=> state.cart);
+    const removeBiryani = useStore((state)=>state.removeBiryani);
+    const [PaymentMethod,setPaymentMethod] = useState(null);
     const handleRemove = (i) => {
         removeBiryani(i);
         toast.error('Item Removed!')
@@ -36,7 +39,12 @@ export default function Cart() {
         });
         return sum;
       };
-      
+    
+    const handleOnDelivery = ()=> {
+        setPaymentMethod(0);
+        typeof window !== 'undefined' && localStorage.setItem('total',total())
+    }  
+
     return(
         <Layout>
             <div className={css.container}>
@@ -54,6 +62,7 @@ export default function Cart() {
                                 <th></th>
                             </tr>
                         </thead>
+                        
                         <tbody className={css.tbody}>
                             {CartData.biryanis.length > 0 && 
                             CartData.biryanis.map((biryani, i)=> {
@@ -88,10 +97,12 @@ export default function Cart() {
                                     <td style={{color: "var(--themeRed)", cursor:"pointer"}}
                                      onClick={()=>handleRemove(i)}>x</td>
                                 </tr>
+                                
                             )})
                             } 
                         </tbody>
                     </table>
+                    </div>
                     {/* Summary */}
                 <div className={css.cart}>
                     <span>Cart</span>
@@ -106,13 +117,21 @@ export default function Cart() {
                         </div>
                     </div>
                     <div className={css.buttons}>
-                        <button className="btn">Pay on Delivery</button>
+                        <button className="btn" onClick={handleOnDelivery}>Pay on Delivery</button>
                         <button className="btn">Pay Now</button>
                     </div>
                 </div>
             </div>
-        </div>
+        
         <Toaster/>
+
+        {/* modal */}
+        <OrderModal 
+            opened = {PaymentMethod === 0}
+            setOpened = {setPaymentMethod}
+            PaymentMethod = {PaymentMethod}
+        />
+
         </Layout>
-    )
+    );
 }

@@ -7,19 +7,15 @@ import Link from 'next/link';
 
 export default function Header(){
 
-    // state in terminal
-    const state = useStore((state)=>state)
-    console.log(state)
-
-
-    const items = useStore((state)=> state.cart.biryanis.length)
+   const items = useStore((state)=> state.cart.biryanis.length)
    return(
     <div className={css.header}>
         {/* logo side */}
         <div className={css.logo}>
             <Image src = {Logo} alt = "" width={50} height={50} />
             <span>
-                BiryaniHub
+                <a href ="http://localhost:3001/
+                ">BiryaniHub</a>
             </span>
         </div>
         {/* menu side */}

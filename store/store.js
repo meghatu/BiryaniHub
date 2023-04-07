@@ -21,6 +21,13 @@ export const useStore = create(
                 cart :{
                     biryanis: state.cart.biryanis.filter((_,i)=> i !=index)
                 }
+            })),
+
+            resetCart: () =>
+            set(()=> ({
+                cart: {
+                    biryanis:[]
+                }
             }))
         }
     )
