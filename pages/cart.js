@@ -7,6 +7,7 @@ import OrderModal from "../components/OrderModal"
 import { urlFor } from "../lib/client"
 import { useStore } from "../store/store"
 import css from "../styles/Cart.module.css"
+import { useRouter } from "next/router"
 
 export default function Cart() {
     const CartData = useStore((state)=> state.cart);
@@ -14,8 +15,11 @@ export default function Cart() {
     const [PaymentMethod,setPaymentMethod] = useState(null);
     const handleRemove = (i) => {
         removeBiryani(i);
-        toast.error('Item Removed!')
-    }
+        toast.error('Item Removed!');
+    };
+
+    const router = useRouter()
+
     // const total = ()=> CartData.biryanis.reduce((a,biryani)=> a+biryani.size === 0 ? biryani.price[0] * biryani.quantity: a+biryani.size === 1 ?  biryani.price[1] * biryani.quantity:  a+biryani.price[2] * biryani.quantity, 0)
     const total = () => {
         let sum = 0;
@@ -44,6 +48,24 @@ export default function Cart() {
         setPaymentMethod(0);
         typeof window !== 'undefined' && localStorage.setItem('total',total())
     }  
+
+    const handleCheckout = async ()=> {
+        typeof window !== 'undefined' && localStorage.setItem('total',total())
+        setPaymentMethod(1);
+        const response = await fetch('/api/stripe', {
+            method: "POST",
+            headers:{
+                'Content-Type': "application/json",
+            },
+            body: JSON.stringify(CartData.biryanis),
+        });
+
+        if(response.status === 500) return;
+
+        const data = await response.json();
+        toast.loading("Redirecting...");
+        router.push(data.url)
+    }
 
     return(
         <Layout>
@@ -118,7 +140,7 @@ export default function Cart() {
                     </div>
                     <div className={css.buttons}>
                         <button className="btn" onClick={handleOnDelivery}>Pay on Delivery</button>
-                        <button className="btn">Pay Now</button>
+                        <button className="btn"onClick={handleCheckout}>Pay Now</button>
                     </div>
                 </div>
             </div>

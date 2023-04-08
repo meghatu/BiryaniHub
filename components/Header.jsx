@@ -20,12 +20,17 @@ export default function Header(){
         <div className={css.logo}>
             <Image src = {Logo} alt = "" width={50} height={50} />
             <span>
-                <a href ="http://localhost:3001/">BiryaniHub</a>
+                <a href ="../.">BiryaniHub</a>
             </span>
         </div>
         {/* menu side */}
         <ul className={css.menu}>
-            <li>Home</li>
+            <li>
+                <Link href='../.'>
+                Home
+                </Link>
+            </li>
+
             <li>Menu</li>
             <li>Contact</li>
         </ul>
