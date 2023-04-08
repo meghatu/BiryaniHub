@@ -46,3 +46,27 @@
 .status>*{
     fill: var(--themeRed)
 }
+
+.spinner{
+    position: absolute;
+    left: -1.5rem;
+    top: -1.5rem;
+    width: 6rem;
+}
+
+.pending{
+    width: max-content;
+    background-color: orange;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+    color: white;
+}
+
+.completed{
+    border-radius: 1rem;
+    color: white;
+    background-color: rgb(159 230 53);
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
