@@ -17,12 +17,16 @@ export default function Header(){
    return(
     <div className={css.header}>
         {/* logo side */}
-        <div className={css.logo}>
-            <Image src = {Logo} alt = "" width={50} height={50} />
-            <span>
-                <a href ="../.">BiryaniHub</a>
-            </span>
-        </div>
+            <div className={css.logo}>
+                <Link href='../.'>
+                    <Image src = {Logo} alt = "" width={50} height={50} />
+                </Link>
+                <span>
+                    <Link href='../.'>
+                        BiryaniHub
+                    </Link>
+                </span>
+            </div>
         {/* menu side */}
         <ul className={css.menu}>
             <li>
