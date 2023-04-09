@@ -13,6 +13,9 @@ export default function Cart() {
     const CartData = useStore((state)=> state.cart);
     const removeBiryani = useStore((state)=>state.removeBiryani);
     const [PaymentMethod,setPaymentMethod] = useState(null);
+    const [Order, setOrder] = useState(
+        typeof window !== "undefined" && localStorage.getItem('order')
+    )
     const handleRemove = (i) => {
         removeBiryani(i);
         toast.error('Item Removed!');
@@ -60,7 +63,8 @@ export default function Cart() {
             body: JSON.stringify(CartData.biryanis),
         });
 
-        if(response.status === 500) return;
+        if(response.status === 500) 
+        return;
 
         const data = await response.json();
         toast.loading("Redirecting...");
@@ -138,10 +142,14 @@ export default function Cart() {
                             <span>₹ {total()}</span>
                         </div>
                     </div>
+
+                    
+                    {!Order && CartData.biryanis.length > 0 ? (
                     <div className={css.buttons}>
                         <button className="btn" onClick={handleOnDelivery}>Pay on Delivery</button>
-                        <button className="btn"onClick={handleCheckout}>Pay Now</button>
+                        <button className="btn" onClick={handleCheckout}>Pay Now</button>
                     </div>
+                    ): null}
                 </div>
             </div>
         
