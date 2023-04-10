@@ -5,9 +5,20 @@ import Services from "../components/Services";
 import Menu from "../components/Menu";
 import css from "../styles/Home.module.css";
 import { client } from "../lib/client";
+import Login from "../pages/user/login"
+
+import { useEffect, useState } from "react";
+
 
 export default function Home({biryanis}) {
-  return (
+  const [isLoggedIn, setisLoggedIn] = useState('')
+  useEffect(() => {
+    setisLoggedIn(JSON.parse(localStorage.getItem('isAuth')))
+    const item = JSON.parse(localStorage.getItem('isAuth'))
+    console.log(item)
+  }, [isLoggedIn])
+
+  return isLoggedIn === "YES" ? 
     <Layout>
       <div className={css.container}>
         <Head>
@@ -22,8 +33,8 @@ export default function Home({biryanis}) {
           <Menu biryanis={biryanis}/>
         </main>
       </div>
-    </Layout>
-  );
+    </Layout> : <Login/>
+  ;
 }
 
 
@@ -36,3 +47,6 @@ export const getServerSideProps = async()=> {
     }
   }
 }
+
+
+
