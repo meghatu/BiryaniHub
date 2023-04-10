@@ -64,8 +64,8 @@ export default function Order({order}) {
                         <UilReceipt width={50} height={50}/>
                         <span>Payment</span>
                         {order.method === 0 ? 
-                        <span className={css.pending}>On Delivery</span>  :
-                        <span className={css.comlpeted}>Conpleted</span>   
+                        <span className={css.pending}>Cash</span>  :
+                        <span className={css.completed}>Completed</span>   
                     }
                     </div>
                     <div className={css.status}>
@@ -78,13 +78,13 @@ export default function Order({order}) {
                         )}
 
                         {order.status> 1 && (
-                            <span className={css.completed}>completed</span>
+                            <span className={css.completed}>Completed</span>
                         )}
                      </div>
 
                      <div className={css.status}>
                         <Image src={Onway} alt="" width={50} height={50}/>
-                        <span>On the way!</span>
+                        <span>HoldOn</span>
                         {order.status === 2 && (
                             <div className={css.spinner}>
                                 <Image src={Spinner} alt=""/>
@@ -92,7 +92,7 @@ export default function Order({order}) {
                         )}
 
                         {order.status> 2 && (
-                            <span className={css.completed}>completed</span>
+                            <span className={css.completed}>Completed</span>
                         )}
                      </div>
                      
@@ -105,7 +105,7 @@ export default function Order({order}) {
                             </div>
                         )}
                         {order.status> 3 && (
-                            <span className={css.completed}>completed</span>
+                            <span className={css.completed}>Completed</span>
                         )}
                      </div>
                 </div>

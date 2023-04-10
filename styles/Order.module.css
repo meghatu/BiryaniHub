@@ -29,7 +29,7 @@
     font-weight: 600;
 }
 
-.statusContianer{
+.statusContainer{
     display: flex;
     gap: 15rem;
 }
@@ -64,9 +64,10 @@
 }
 
 .completed{
-    border-radius: 1rem;
-    color: white;
-    background-color: rgb(159 230 53);
+    width: max-content;
+    background-color: green;
     padding: 0.5rem;
     font-size: 0.8rem;
+    border-radius: 1rem;
+    color: white;
 }
