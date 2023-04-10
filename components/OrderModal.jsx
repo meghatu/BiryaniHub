@@ -44,10 +44,11 @@ export default function OrderModal({opened, setOpened, PaymentMethod}) {
                 <input onChange ={handleInput} type="text" name="name" required placeholder="Name"/>
                 <input onChange ={handleInput} type="text" name="phone" required placeholder="Phone Number"/>
                 <textarea onChange ={handleInput} name="address" rows={3} placeholder="Address"></textarea>
-
-                <span>
-                    You will pay <span>₹ {total} </span> on delivery
-                </span>
+                {PaymentMethod === 0 ? 
+                        <span>You will pay <span>₹ {total} </span> on delivery</span>  :
+                        <span>You paid <span>₹ {total} </span> via Online</span>   
+                    }
+                
                 <button type="submit" className="btn"> Place Order</button>
             </form>
             <Toaster/>
