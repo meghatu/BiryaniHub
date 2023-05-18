@@ -4,22 +4,52 @@ import Hero from "../components/Hero";
 import Services from "../components/Services";
 import Menu from "../components/Menu";
 import css from "../styles/Home.module.css";
-// import css from "../styles/Login.module.css";
 import { client } from "../lib/client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const SESSION_EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 export default function Home({ biryanis }) {
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedExpirationTime = localStorage.getItem("expirationTime");
+
+    if (storedUsername && storedExpirationTime) {
+      const currentTime = new Date().getTime();
+      if (currentTime < storedExpirationTime) {
+        setUsername(storedUsername);
+        setisLoggedIn(true);
+        setExpirationTimer(storedExpirationTime - currentTime);
+      } else {
+        logout();
+      }
+    }
+  }, []);
+
+  const setExpirationTimer = (expirationTime) => {
+    setTimeout(logout, expirationTime);
+  };
 
   const handleLogin = () => {
     if (username === "admin" && password === "admin") {
+      const expirationTime = new Date().getTime() + SESSION_EXPIRATION_TIME;
+      localStorage.setItem("username", username);
+      localStorage.setItem("expirationTime", expirationTime);
+      setExpirationTimer(SESSION_EXPIRATION_TIME);
       setisLoggedIn(true);
     } else {
-      setError("Invalid username or password");
+      alert("Invalid username or password");
     }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("expirationTime");
+    setisLoggedIn(false);
   };
 
   return isLoggedIn ? (
@@ -61,7 +91,6 @@ export default function Home({ biryanis }) {
         <button className={css.button} onClick={handleLogin}>
           Login
         </button>
-        {error && <p className={css.error}>{error}</p>}
       </div>
     </div>
   );
