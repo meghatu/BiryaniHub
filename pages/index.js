@@ -6,6 +6,8 @@ import Menu from "../components/Menu";
 import css from "../styles/Home.module.css";
 import { client } from "../lib/client";
 import { useState, useEffect } from "react";
+import {UilSignout} from "@iconscout/react-unicons";
+
 
 const SESSION_EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes in milliseconds
 
@@ -62,6 +64,9 @@ export default function Home({ biryanis }) {
         </Head>
         {/* body */}
         <main>
+          <button className={css.logoutButton} onClick={logout}>
+          <UilSignout size={28}/>
+          </button>
           <Hero />
           <Services />
           <Menu biryanis={biryanis} />

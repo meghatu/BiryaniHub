@@ -36,3 +36,31 @@
     font-size: 13px;
     color: red;
 }
+
+.logoutButton {
+    /* background-color: #ff0000; */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: var(--themeRed);
+    box-shadow: var(--shadow); 
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: max-content;
+    padding: 0.7rem;
+    z-index: 99;
+    border-radius: 4rem;
+    gap: 0.5rem;
+    top: 4rem; 
+    left: 81rem;
+}
+  
+  .logoutButton:hover {
+    background-color: #cc0000;
+  }
+  
