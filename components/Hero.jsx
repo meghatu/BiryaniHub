@@ -18,7 +18,7 @@ export default function Hero() {
                 <span>Biryani Delivered</span>
                 <span>Faster Than You</span>
                 <span>
-                    Can Say <span style={{color: "var(--themeRed)"}}>'Yum!'</span>
+                    Can Say <span style={{color: "var(--themeRed)"}}>Yum!</span>
                 </span>
             </div>
             <span className={css.miniText}> Our mission is to filling you tummy with delicious food and with fast and free delivery</span>
